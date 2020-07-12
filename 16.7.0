@@ -1,0 +1,4 @@
++ react@16.5.0
+updated 1 package and audited 1300 packages in 4.81s
+found 88 low severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details

@@ -175,7 +175,10 @@ class ContributionGraph extends AbstractChart {
     if (this.state.valueCache[index]) {
       return this.state.valueCache[index].tooltipDataAttrs;
     }
-    return this.getTooltipDataAttrsForValue({ date: null, [this.props.accessor]: null });
+    return this.getTooltipDataAttrsForValue({
+      date: null,
+      [this.props.accessor]: null
+    });
   }
 
   getTooltipDataAttrsForValue(value) {
@@ -340,7 +343,7 @@ class ContributionGraph extends AbstractChart {
             ...this.props.chartConfig
           })}
           <Rect
-            width="100%"
+            width={this.props.width}
             height={this.props.height}
             rx={borderRadius}
             ry={borderRadius}

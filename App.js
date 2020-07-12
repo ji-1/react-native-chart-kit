@@ -2,22 +2,9 @@ import "babel-polyfill";
 import React from "react";
 import { ScrollView, StatusBar, Dimensions, Text } from "react-native";
 import ScrollableTabView from "react-native-scrollable-tab-view";
-import FlashMessage, { showMessage } from "react-native-flash-message";
-import LineChart from "./src/line-chart";
-import PieChart from "./src/pie-chart";
-import ProgressChart from "./src/progress-chart";
-import BarChart from "./src/bar-chart";
-import StackedBarChart from "./src/stackedbar-chart";
 import ContributionGraph from "./src/contribution-graph";
-import {
-  data,
-  contributionData,
-  pieChartData,
-  progressChartData,
-  stackedBarGraphData
-} from "./data";
+import { contributionData } from "./data";
 
-// in Expo - swipe left to see the following styling, or create your own
 const chartConfigs = [
   {
     backgroundColor: "#000000",
@@ -121,172 +108,15 @@ export default class App extends React.Component {
                 backgroundColor: chartConfig.backgroundColor
               }}
             >
-              <Text style={labelStyle}>Bezier Line Chart</Text>
-              <LineChart
-                bezier
-                data={data}
-                width={width}
-                height={height}
-                yAxisLabel="$"
-                yAxisSuffix="k"
-                chartConfig={chartConfig}
-                style={graphStyle}
-                verticalLabelRotation={20}
-                onDataPointClick={({ value, getColor }) =>
-                  showMessage({
-                    message: `${value}`,
-                    description: "You selected this value",
-                    backgroundColor: getColor(0.9)
-                  })
-                }
-                formatXLabel={label => label.toUpperCase()}
-              />
-              <FlashMessage duration={1000} />
-              <Text style={labelStyle}>Progress Chart</Text>
-              <ProgressChart
-                data={progressChartData}
-                width={width}
-                height={height}
-                chartConfig={chartConfig}
-                style={graphStyle}
-                hideLegend={false}
-              />
-              <Text style={labelStyle}>Bar Graph</Text>
-              <BarChart
-                width={width}
-                height={height}
-                data={data}
-                yAxisLabel="$"
-                chartConfig={chartConfig}
-                style={graphStyle}
-              />
-              <Text style={labelStyle}>Stacked Bar Graph</Text>
-              <StackedBarChart
-                style={graphStyle}
-                data={stackedBarGraphData}
-                width={width}
-                height={220}
-                chartConfig={chartConfig}
-              />
-              <Text style={labelStyle}>Pie Chart</Text>
-              <PieChart
-                data={pieChartData}
-                height={height}
-                width={width}
-                chartConfig={chartConfig}
-                accessor="population"
-                style={graphStyle}
-                backgroundColor="transparent"
-                paddingLeft="15"
-              />
-              <Text style={labelStyle}>Line Chart</Text>
-              <LineChart
-                data={data}
-                width={width}
-                height={height}
-                yAxisLabel="$"
-                chartConfig={chartConfig}
-                style={graphStyle}
-              />
               <Text style={labelStyle}>Contribution Graph</Text>
               <ContributionGraph
                 values={contributionData}
                 width={width}
                 height={height}
                 endDate={new Date("2016-05-01")}
-                numDays={105}
+                numDays={31}
                 chartConfig={chartConfig}
                 style={graphStyle}
-              />
-              <Text style={labelStyle}>Line Chart</Text>
-              <LineChart
-                data={data}
-                width={width}
-                height={height}
-                yAxisLabel="$"
-                segments={5}
-                chartConfig={chartConfig}
-                style={graphStyle}
-                hidePointsAtIndex={[0, data.datasets[0].data.length - 1]}
-              />
-              <Text style={labelStyle}>Line Chart with shadow background as line color</Text>
-              <LineChart
-                bezier
-                data={data}
-                width={width}
-                height={height}
-                yAxisLabel="$"
-                segments={5}
-                chartConfig={{
-                  ...chartConfig,
-                  useShadowColorFromDataset: true
-                }}
-                style={graphStyle}
-                hidePointsAtIndex={[0, data.datasets[0].data.length - 1]}
-              />
-
-              <Text style={labelStyle}>Scrollable Line Chart</Text>
-              <LineChart
-                data={{
-                  labels: [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June"
-                  ],
-                  datasets: [
-                    {
-                      data: [
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100,
-                        Math.random() * 100
-                      ]
-                    }
-                  ]
-                }}
-                width={Dimensions.get("window").width} // from react-native
-                height={220}
-                withInnerLines={false}
-                withDots={false}
-                withShadow={false}
-                withScrollableDot={true}
-                yAxisInterval={1} // optional, defaults to 1
-                chartConfig={{
-                  backgroundGradientFrom: "#1F1F1F",
-                  decimalPlaces: 2, // optional, defaults to 2dp
-                  color: (opacity = 1) => "#FF5500",
-                  labelColor: (opacity = 1) => "#A0A0A0",
-                  linejoinType: "round",
-
-                  scrollableDotFill: "#fff",
-                  scrollableDotRadius: 6,
-                  scrollableDotStrokeColor: "#FF5500",
-                  scrollableDotStrokeWidth: 3,
-
-                  scrollableInfoViewStyle: {
-                    justifyContent: "center",
-                    alignContent: "center",
-                    backgroundColor: "#121212",
-                    borderRadius: 2
-                  },
-                  scrollableInfoTextStyle: {
-                    color: "#C4C4C4",
-                    marginHorizontal: 4,
-                    flex: 1,
-                    textAlign: "center"
-                  },
-                  scrollableInfoSize: { width: 65, height: 30 },
-                  scrollableInfoOffset: 15
-                }}
-                style={{
-                  marginVertical: 8
-                }}
               />
             </ScrollView>
           );
